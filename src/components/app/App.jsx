@@ -1,10 +1,25 @@
 import { useState } from 'react';
+
+import Description from '../description/Description';
+import Options from '../options/Options';
+import Feedback from '../feedback/Feedback';
+
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  });
 
-  return <>gfhdg</>;
+  return (
+    <>
+      <Description />
+      <Options />
+      <Feedback />
+    </>
+  );
 }
 
 export default App;
