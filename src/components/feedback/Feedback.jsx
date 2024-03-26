@@ -1,14 +1,12 @@
 import css from './Feedback.module.css';
 
-const Feedback = () => {
+const Feedback = ({ feedback }) => {
   return (
-    <div>
-      <h1>Sip Happens Café</h1>
-      <p>
-        Please leave your feedback about our service by selecting one of the
-        options below.
-      </p>
-    </div>
+    <ul>
+      <li>Good: {feedback.good}</li>
+      <li>Neutral: {feedback.neutral}</li>
+      <li>Bad: {feedback.bad}</li>
+    </ul>
   );
 };
 

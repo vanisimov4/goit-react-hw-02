@@ -1,10 +1,12 @@
 import css from './Options.module.css';
 
-const Options = () => {
+const Options = ({ updateFeedback }) => {
   return (
     <div className={css.optionsBtn}>
-      <button>Good</button>
-      <button>Neutral</button>
+      <button onClick={updateFeedback} name="neutral">
+        Good
+      </button>
+      <button onClick={updateFeedback('neutral')}>Neutral</button>
       <button>Bad</button>
     </div>
   );

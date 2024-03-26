@@ -7,17 +7,22 @@ import Feedback from '../feedback/Feedback';
 import './App.css';
 
 function App() {
-  const [count, setCount] = useState({
+  const [feedback, setFeedback] = useState({
     good: 0,
     neutral: 0,
     bad: 0,
   });
 
+  const updateFeedback = feedbackType => {
+    // Тут використовуй сеттер, щоб оновити стан
+    console.log(feedbackType);
+  };
+
   return (
     <>
       <Description />
-      <Options />
-      <Feedback />
+      <Options updateFeedback={updateFeedback} />
+      <Feedback feedback={feedback} />
     </>
   );
 }
