@@ -15,7 +15,14 @@ function App() {
 
   const updateFeedback = feedbackType => {
     // Тут використовуй сеттер, щоб оновити стан
-    console.log(feedbackType);
+    const targetName = feedbackType.target.name;
+    console.log(targetName);
+    setFeedback({
+      ...feedback,
+      [targetName]: feedback[targetName] + 1,
+    });
+    console.log(feedback[targetName]);
+    // console.log([feedbackType.target.name]);
   };
 
   return (
