@@ -3,6 +3,7 @@ import { useState } from 'react';
 import Description from '../description/Description';
 import Options from '../options/Options';
 import Feedback from '../feedback/Feedback';
+import Notification from '../notification/Notification';
 
 import './App.css';
 
@@ -13,23 +14,26 @@ function App() {
     bad: 0,
   });
 
+  const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+
   const updateFeedback = feedbackType => {
     // Тут використовуй сеттер, щоб оновити стан
     const targetName = feedbackType.target.name;
-    console.log(targetName);
     setFeedback({
       ...feedback,
       [targetName]: feedback[targetName] + 1,
     });
-    console.log(feedback[targetName]);
-    // console.log([feedbackType.target.name]);
   };
 
   return (
     <>
       <Description />
       <Options updateFeedback={updateFeedback} />
-      <Feedback feedback={feedback} />
+      {totalFeedback === 0 ? (
+        <Notification />
+      ) : (
+        <Feedback feedback={feedback} />
+      )}
     </>
   );
 }
