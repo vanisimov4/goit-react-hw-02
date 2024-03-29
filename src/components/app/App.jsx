@@ -8,17 +8,23 @@ import Notification from '../notification/Notification';
 import './App.css';
 
 function App() {
-  const [feedback, setFeedback] = useState({
+  const initial = {
     good: 0,
     neutral: 0,
     bad: 0,
-  });
+  };
+
+  const [feedback, setFeedback] = useState(initial);
 
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
 
   const updateFeedback = feedbackType => {
     // Тут використовуй сеттер, щоб оновити стан
     const targetName = feedbackType.target.name;
+    if (targetName === 'reset') {
+      setFeedback(initial);
+      return;
+    }
     setFeedback({
       ...feedback,
       [targetName]: feedback[targetName] + 1,
@@ -28,11 +34,11 @@ function App() {
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback} />
+      <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} />
       {totalFeedback === 0 ? (
         <Notification />
       ) : (
-        <Feedback feedback={feedback} />
+        <Feedback feedback={feedback} totalFeedback={totalFeedback} />
       )}
     </>
   );
