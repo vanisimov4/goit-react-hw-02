@@ -25,31 +25,39 @@ function App() {
   });
 
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const positiveFeedback = Math.round((feedback.good / totalFeedback) * 100);
 
   useEffect(() => {
     window.localStorage.setItem('options', JSON.stringify(feedback));
-  });
+  }, [feedback]);
 
   const updateFeedback = feedbackType => {
-    const targetName = feedbackType.target.name;
-    if (targetName === 'reset') {
-      setFeedback(initial);
-      return;
-    }
-    setFeedback({
-      ...feedback,
-      [targetName]: feedback[targetName] + 1,
-    });
+    setFeedback(prevFeedback => ({
+      ...prevFeedback,
+      [feedbackType]: prevFeedback[feedbackType] + 1,
+    }));
   };
+
+  function resetFeedback() {
+    setFeedback(initial);
+  }
 
   return (
     <>
       <Description />
-      <Options updateFeedback={updateFeedback} totalFeedback={totalFeedback} />
+      <Options
+        updateFeedback={updateFeedback}
+        totalFeedback={totalFeedback}
+        resetFeedback={resetFeedback}
+      />
       {totalFeedback === 0 ? (
         <Notification />
       ) : (
-        <Feedback feedback={feedback} totalFeedback={totalFeedback} />
+        <Feedback
+          feedback={feedback}
+          totalFeedback={totalFeedback}
+          positiveFeedback={positiveFeedback}
+        />
       )}
     </>
   );
